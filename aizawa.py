@@ -7,11 +7,11 @@ a = 0.95; b = 0.7; c = 0.6
 d = 3.5; e = 0.25; g = 0.1
 
 # Initial conditions
-x_init_1 = 1.1; y_init_1 = 1.1; z_init_1 = 0.1
+x_init_1 = 1.45e+00; y_init_1 = -1.25e-01; z_init_1 = 8.07e-01
 initial_state_1 = np.array([x_init_1, y_init_1, z_init_1])
 
 # Create array of time values to study
-t_init = 0; t_fin = 360; h = 0.02
+t_init = 0; t_fin = 420; h = 0.02
 t = np.arange(t_init, t_fin, h)
 
 # Governing system of differential equations
@@ -21,34 +21,34 @@ def f(state, t):
 
 states = odeint(f, initial_state_1, t)
         
-class SimpleAizawa(ThreeDScene):
+class AizawaRotate(ThreeDScene):
 
     def construct(self):           
         
         axes = ThreeDAxes()
         
-        x_coords = 1.0*states[:, 0]
-        y_coords = 1.0*states[:, 1]
-        z_coords = 1.0*states[:, 2] - 0.94
+        x_coords = 1.1*states[:, 0]
+        y_coords = 1.1*states[:, 1]
+        z_coords = 1.1*states[:, 2] - 0.94
 
         def coord(x,y,z):
             return np.array([x,y,z])
         
         self.tuples = list(zip(x_coords,y_coords,z_coords))
         
-        trajectory = VMobject(stroke_width=0.2)
-        trajectory.set_color(BLUE)
+        trajectory = VMobject(stroke_width=0.25)
+        trajectory.set_color(WHITE)
         trajectory.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples]])
         
         # self.add(axes)
         self.set_camera_orientation(phi=PI/2, theta=2*PI, distance = 2)
-        # self.play(ShowCreation(trajectory), run_time=36)
-        self.add(trajectory)
-        self.wait(1)
-        self.begin_ambient_camera_rotation(about = 'phi', rate = 2*PI/10)
-        self.wait(5)
+        self.play(ShowCreation(trajectory), run_time=36)
+        # self.add(trajectory)
+        self.wait(2)
+        self.begin_ambient_camera_rotation(about = 'phi', rate = 2*PI/40)
+        self.wait(20)
         self.stop_ambient_camera_rotation()
-        # self.play(
-            # FadeOut(trajectory),
-            # run_time = 2
-        # )
+        self.play(
+            FadeOut(trajectory),
+            run_time = 2
+        )
