@@ -46,20 +46,20 @@ class AizawaRotate(ThreeDScene):
         
         self.tuples = list(zip(x_coords,y_coords,z_coords))
         
-        trajectory = VMobject(stroke_width=0.55)
+        trajectory = VMobject(stroke_width=0.85)
         trajectory.set_color(WHITE)
         trajectory.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples]])
         
         # self.add(axes)
         self.set_camera_orientation(phi=PI/2, theta=2*PI, distance = 2)
-        # self.play(ShowCreation(trajectory), run_time=36)
-        self.add(trajectory)
-        # self.wait(2)
-        # self.begin_ambient_camera_rotation(about = 'phi', rate = 2*PI/40)
-        # self.wait(20)
-        # self.stop_ambient_camera_rotation()
-        # self.wait()
-        # self.play(
-            # FadeOut(trajectory),
-            # run_time = 2
-        # )
+        self.play(ShowCreation(trajectory), run_time=36)
+        # self.add(trajectory)
+        self.wait(2)
+        self.begin_ambient_camera_rotation(about = 'phi', rate = 2*PI/40)
+        self.wait(20)
+        self.stop_ambient_camera_rotation(about = 'phi')
+        self.wait()
+        self.play(
+            FadeOut(trajectory),
+            run_time = 2
+        )
