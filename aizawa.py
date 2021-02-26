@@ -30,6 +30,33 @@ class IntroText(Scene):
         self.wait(2)
         self.play(FadeOut(text))
         self.wait()
+
+class Thumbnail(ThreeDScene):
+    
+    def construct(self):
+
+        axes = ThreeDAxes()
+        
+        x_coords = 1.9*states[:, 0]
+        y_coords = 1.9*states[:, 1]
+        z_coords = 1.9*states[:, 2] - 0.94
+
+        def coord(x,y,z):
+            return np.array([x,y,z])
+        
+        self.tuples = list(zip(x_coords,y_coords,z_coords))
+        
+        trajectory = VMobject(stroke_width=1.45)
+        trajectory.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples]])
+        
+        # self.add(axes)
+        self.set_camera_orientation(phi=PI/2, theta=2*PI, distance = 2)
+        self.add(trajectory)
+
+        text3=MathTex("\\text{Aizawa}").scale(8)
+        text3.set_color(RED)
+        self.add_fixed_in_frame_mobjects(text3)
+        self.wait(2)
         
 class AizawaRotate(ThreeDScene):
 
@@ -59,7 +86,4 @@ class AizawaRotate(ThreeDScene):
         self.wait(20)
         self.stop_ambient_camera_rotation(about = 'phi')
         self.wait()
-        self.play(
-            FadeOut(trajectory),
-            run_time = 2
-        )
+        self.play(FadeOut(trajectory), run_time = 2)
