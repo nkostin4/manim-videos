@@ -20,6 +20,16 @@ def f(state, t):
     return np.array([(z - b)*x - d*y, d*x + (z - b)*y, c + a*z - ((z**3)/(3)) - ((x**2 + y**2)*(1 + e*z)) + g*z*(x**3)])
 
 states = odeint(f, initial_state_1, t)
+
+class IntroText(Scene):
+    
+    def construct(self):
+        text=MathTex("\\text{The Aizawa Attractor}").scale(2)
+        text.set_color_by_gradient(WHITE, BLUE, RED)
+        self.play(Write(text))
+        self.wait(2)
+        self.play(FadeOut(text))
+        self.wait()
         
 class AizawaRotate(ThreeDScene):
 
@@ -36,19 +46,20 @@ class AizawaRotate(ThreeDScene):
         
         self.tuples = list(zip(x_coords,y_coords,z_coords))
         
-        trajectory = VMobject(stroke_width=0.25)
+        trajectory = VMobject(stroke_width=0.55)
         trajectory.set_color(WHITE)
         trajectory.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples]])
         
         # self.add(axes)
         self.set_camera_orientation(phi=PI/2, theta=2*PI, distance = 2)
-        self.play(ShowCreation(trajectory), run_time=36)
-        # self.add(trajectory)
-        self.wait(2)
-        self.begin_ambient_camera_rotation(about = 'phi', rate = 2*PI/40)
-        self.wait(20)
-        self.stop_ambient_camera_rotation()
-        self.play(
-            FadeOut(trajectory),
-            run_time = 2
-        )
+        # self.play(ShowCreation(trajectory), run_time=36)
+        self.add(trajectory)
+        # self.wait(2)
+        # self.begin_ambient_camera_rotation(about = 'phi', rate = 2*PI/40)
+        # self.wait(20)
+        # self.stop_ambient_camera_rotation()
+        # self.wait()
+        # self.play(
+            # FadeOut(trajectory),
+            # run_time = 2
+        # )
