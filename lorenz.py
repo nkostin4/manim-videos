@@ -1,23 +1,6 @@
-#!/usr/bin/env python
-# Flink --- John Martin Knuth
-
-from manimlib.imports import *
+from manim import *
 from scipy.integrate import odeint
 
-
-# Hopefully destined for obsolescence
-# Fetch data from CSV
-def get_coords_from_csv(file_name):
-        import csv
-        coords = []
-        with open(f'{file_name}', 'r') as csvFile:
-            reader = csv.reader(csvFile)
-            x, y, z = row
-            coord = [float(x), float(y), float(z)]
-            coords.append(coord)
-        csvFile.close()
-        return coords
-        
 # Numerically solve ODEs
 # Define constants
 sigma = 10; beta = (8/3); rho = 28
@@ -649,22 +632,6 @@ class TwoButterflies(ThreeDScene):
         )
         
 class ThreeButterflies(ThreeDScene):
-    CONFIG = {
-        'x_min' : -100,
-        'x_max' : 100,
-        
-        'y_min' : -100,
-        'y_max' : 100,
-        
-        'z_min' : -100,
-        'z_max' : 100,
-        
-        'exclude_zero_label' : True,
-        
-        'axes_color': WHITE,
-        
-        'stroke_width' : 0.02
-    }
 
     def construct(self):
     
@@ -689,65 +656,102 @@ class ThreeButterflies(ThreeDScene):
         self.tuples_4 = list(zip(x_coords_4, y_coords_4, z_coords_4))
         self.tuples_5 = list(zip(x_coords_5, y_coords_5, z_coords_5))
         
-        trajectory_3 = VMobject()
+        trajectory_3 = VMobject(stroke_width=0.95)
         trajectory_3.set_color(RED)
         trajectory_3.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples_3]])
         
-        trajectory_4 = VMobject()
+        trajectory_4 = VMobject(stroke_width=0.95)
         trajectory_4.set_color(GREEN)
         trajectory_4.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples_4]])
         
-        trajectory_5 = VMobject()
+        trajectory_5 = VMobject(stroke_width=0.95)
         trajectory_5.set_color(BLUE)
         trajectory_5.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples_5]])
         
         # self.add(axes)
         self.set_camera_orientation(phi=PI/2, theta=25*PI/16, distance = 30)        
-        self.play(ShowCreation(trajectory_3), ShowCreation(trajectory_4), ShowCreation(trajectory_5), run_time=60)
-        self.wait(2)
+        self.add(trajectory_3)
+        self.add(trajectory_4)
+        self.add(trajectory_5)
+        # self.play(ShowCreation(trajectory_3), ShowCreation(trajectory_4), ShowCreation(trajectory_5), run_time=60)
+        # self.wait(2)
         
-        self.begin_ambient_camera_rotation(rate = 2*PI/40)
-        self.wait(40)
-        self.stop_ambient_camera_rotation()
-        self.wait(2.5)
+        # self.begin_ambient_camera_rotation(rate = 2*PI/40)
+        # self.wait(40)
+        # self.stop_ambient_camera_rotation()
+        # self.wait(2.5)
         
-        self.play(
-            FadeOut(trajectory_3),
-            FadeOut(trajectory_4),
-            FadeOut(trajectory_5),
-            run_time = 3
-        )
+        # self.play(
+            # FadeOut(trajectory_3),
+            # FadeOut(trajectory_4),
+            # FadeOut(trajectory_5),
+            # run_time = 3
+        # )
         
-class Farfalle(ThreeDScene):
-    CONFIG = {
-        'x_min' : -100,
-        'x_max' : 100,
-        
-        'y_min' : -100,
-        'y_max' : 100,
-        
-        'z_min' : -100,
-        'z_max' : 100
-    }
+class GradientColorButterfly(ThreeDScene):
     
     def construct(self):
         
         axes = ThreeDAxes()
         
-        x_coords_6 = 0.148*states_4[:, 0]
-        y_coords_6 = 0.148*states_4[:, 1]
-        z_coords_6 = 0.148*states_4[:, 2] - 3.65
+        x_coords_3 = 0.174*states_3[:, 0]
+        y_coords_3 = 0.174*states_3[:, 1]
+        z_coords_3 = 0.174*states_3[:, 2] - 4.25
+        
+        x_coords_4 = 0.174*states_4[:, 0]
+        y_coords_4 = 0.174*states_4[:, 1]
+        z_coords_4 = 0.174*states_4[:, 2] - 4.25
+
+        x_coords_5 = 0.174*states_5[:, 0]
+        y_coords_5 = 0.174*states_5[:, 1]
+        z_coords_5 = 0.174*states_5[:, 2] - 4.25
         
         def coord(x,y,z):
             return np.array([x,y,z])
                 
-        self.tuples_6 = list(zip(x_coords_6, y_coords_6, z_coords_6))
+        self.tuples_3 = list(zip(x_coords_3, y_coords_3, z_coords_3))
+        self.tuples_4 = list(zip(x_coords_4, y_coords_4, z_coords_4))
+        self.tuples_5 = list(zip(x_coords_5, y_coords_5, z_coords_5))
         
-        trajectory_6 = VMobject()
-        trajectory_6.set_color(color=[RED, BLUE, WHITE])
-        trajectory_6.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples_6]])
+        trajectory_3 = VMobject(stroke_width=1.4)
+        trajectory_3.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples_3]])
+        colored_trajectory_3 = CurvesAsSubmobjects(trajectory_3)
+        colored_trajectory_3.set_color_by_gradient(RED)
+
+        trajectory_4 = VMobject(stroke_width=1.4)
+        trajectory_4.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples_4]])
+        colored_trajectory_4 = CurvesAsSubmobjects(trajectory_4)
+        colored_trajectory_4.set_color_by_gradient(GOLD)
+
+        trajectory_5 = VMobject(stroke_width=1.0)
+        trajectory_5.set_points_smoothly([*[coord(x,y,z) for x,y,z in self.tuples_5]])
+        colored_trajectory_5 = CurvesAsSubmobjects(trajectory_5)
+        colored_trajectory_5.set_color_by_gradient(BLUE)
+
+        # write some text
+        # title = MathTex("\\text{The Lorenz System}").scale(1.0)
+        # title.set_color_by_gradient(GOLD, BLUE, RED)
+        # self.add_fixed_in_frame_mobjects(title)
+        # title.to_corner(DL)
+
+        # write the equation
+        x_eqn = MathTex("\\dot{x} = \\sigma \\left( y - x \\right)").scale(0.8)
+        y_eqn = MathTex("\\dot{y} = \\rho x - y - xz").scale(0.8)
+        y_eqn.shift(0.6*DOWN)
+        z_eqn = MathTex("\\dot{z} = x y - \\beta z").scale(0.8)
+        z_eqn.shift(1.2*DOWN)
+
+        # group the equations and brace them
+        y_eqn.align_to(x_eqn, LEFT)
+        z_eqn.align_to(y_eqn, LEFT)
+        coupled_odes = VGroup(x_eqn, y_eqn, z_eqn)
+        coupled_odes.to_corner(DR)
+        brace = Brace(coupled_odes, LEFT)
+        self.add_fixed_in_frame_mobjects(coupled_odes)
+        self.add_fixed_in_frame_mobjects(brace)
         
         # self.add(axes)
         self.set_camera_orientation(phi=PI/2, theta=25*PI/16, distance = 30)        
-        self.play(ShowCreation(trajectory_6), run_time=10)
-        self.wait(2)
+        self.add(colored_trajectory_3)
+        self.add(colored_trajectory_4)
+        self.add(colored_trajectory_5)
