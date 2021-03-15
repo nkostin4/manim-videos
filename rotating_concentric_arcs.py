@@ -20,5 +20,6 @@ class FirstRotating(Scene):
         
         # self.play(*[(Rotating(j, about_point = ORIGIN, radians = 26.315789*PI*j.get_arc_length(), rate_function = linear, run_time=200)) for j in arcs])
         # self.play(*[(Rotating(j, about_point = ORIGIN, radians = (get_arc_length())/j, rate_function = linear, run_time=200)) for j in arcs])
+        self.play(*[(Rotating(j, about_point = ORIGIN, radians = 100*j.get_arc_length(), rate_function = linear, run_time=100)) for j in arcs])
         
         self.wait()
