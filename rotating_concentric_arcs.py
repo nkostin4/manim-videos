@@ -2,10 +2,7 @@ from manim import *
 config.frame_height = 225
 config.frame_width = 225*(16/9)
 
-class FirstRotating(ZoomedScene):
-
-    def __init__(self, **kwargs):
-        ZoomedScene.__init__(self, zoomed_factor=5, **kwargs)
+class FirstRotating(Scene):
 
     def construct(self):
     
