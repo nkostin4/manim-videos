@@ -1,4 +1,6 @@
 from manim import *
+config.frame_height = 80
+config.frame_width = 80*(16/9)
 
 class IntroText(Scene):
     
@@ -41,24 +43,24 @@ class CoolPicture(Scene):
             return 4*np.sqrt(2)*np.sqrt(np.absolute(1-np.cos(3*t)))
 
         def get_center(t):
-            ff = np.array([2*np.cos(t)+np.cos(2*t),-2*np.sin(t)-2*np.sin(2*t),-2*np.cos(t)-4*np.cos(2*t)])
-            gg = np.array([2*np.sin(t)-np.sin(2*t),2*np.cos(t)-2*np.cos(2*t),-2*np.sin(t)+4*np.sin(2*t)])
+            f = np.array([2*np.cos(t)+np.cos(2*t),-2*np.sin(t)-2*np.sin(2*t),-2*np.cos(t)-4*np.cos(2*t)])
+            g = np.array([2*np.sin(t)-np.sin(2*t),2*np.cos(t)-2*np.cos(2*t),-2*np.sin(t)+4*np.sin(2*t)])
+            k = (f[1]*g[2] - f[2]*g[1])/((f[1]**2 + g[1]**2)**(3/2))
+            x_c = (1/(k*np.sqrt(f[1]**2 + g[1]**2)))*(-g[1])
+            y_c = (1/(k*np.sqrt(f[1]**2 + g[1]**2)))*(f[1])
             # x_center = ff[0] - ((ff[1]**2 + gg[1]**2)*gg[1])/(ff[1]*gg[2] - ff[2]*gg[1])
             # y_center = gg[0] + ((ff[1]**2 + gg[1]**2)*ff[1])/(ff[1]*gg[2] - ff[2]*gg[1])
-            x_center = ((ff[1]**2 + gg[1]**2)*gg[1])/(ff[1]*gg[2] - ff[2]*gg[1])
-            y_center = ((ff[1]**2 + gg[1]**2)*ff[1])/(ff[1]*gg[2] - ff[2]*gg[1])
-            return [x_center, y_center]
+            # x_center = ((ff[1]**2 + gg[1]**2)*gg[1])/(ff[1]*gg[2] - ff[2]*gg[1])
+            # y_center = ((ff[1]**2 + gg[1]**2)*ff[1])/(ff[1]*gg[2] - ff[2]*gg[1])
+            return [x_c, y_c]
 
         t_vals = np.linspace(0.01, 2*np.pi/3, 25)
         R = get_radius(t_vals)
         Q = get_center(t_vals)
-        o_circles = VGroup()
 
         for i in range(np.size(t_vals)):
             circ = Circle(radius = R[i], color=GOLD).shift(Q[0][i], Q[1][i], 0)
-            o_circles.add(circ)
-
-        self.add(o_circles)
+            self.add(circ)
 
 class AlmostTriangle(Scene):
 
