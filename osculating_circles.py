@@ -83,7 +83,6 @@ class AlmostTriangle(Scene):
 
         def get_curve():
             last_line = self.curve[-1]
-            xkkkkkkkkkkkk
 
         # self.add(curve)
         # self.play(MoveAlongPath(moving_dot, curve), rate_func=linear, run_time=10)
