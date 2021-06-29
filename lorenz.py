@@ -31,6 +31,8 @@ states_2 = odeint(f, initial_state_2, t)
 states_3 = odeint(f, initial_state_3, t)
 states_4 = odeint(f, initial_state_4, t)
 states_5 = odeint(f, initial_state_5, t)
+
+# This first scene is nothing more than some intro text.
         
 class LorenzSystem(Scene):
     
