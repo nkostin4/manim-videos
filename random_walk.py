@@ -6,6 +6,22 @@ config.frame_height = 8
 config.frame_width = 8*(16/9)
 # config.background_color = "#040080"
 
+class BrainletWalk(Scene):
+
+    def construct(self):
+
+        frame_width = config["frame_width"]
+        frame_height = config["frame_height"]
+
+        dot = Dot(color=RED, radius=0.10)
+
+        self.add(dot)
+        self.wait()
+        self.play(dot.animate.shift(frame_width * LEFT / 2), run_time=2)
+        self.wait()
+        self.play(dot.animate.shift(frame_height * UP / 2), run_time=2)
+        self.wait()
+
 class RandomWalk(Scene):
     
     def construct(self):
