@@ -26,7 +26,6 @@ class Intro(Scene):
         middle = Tex(r"\text{of rotation of each concentric half-circle}").scale(1)
         bottom = Tex(r"\text{is proportional to its radius.}").scale(1)
         visit = Tex(r"\text{Visit }\texttt{https://github.com/nkostin4/manim-videos}\text{ for the source code}").shift(2*(16/9)*DOWN).scale(0.8)
-        # visit = Tex(r"\text{Visit }\texttt{https://github.com/nkostin4/manim-videos}\text{ for the source code}").next_to(bottom, 2*DOWN).scale(0.8)
         VGroup(top, middle, bottom).arrange(DOWN)
 
         self.play(FadeIn(title))
@@ -39,7 +38,7 @@ class Intro(Scene):
         self.play(FadeOut(title), FadeOut(top), FadeOut(middle), FadeOut(bottom))
 
 
-class ThreeColors(Scene):
+class ThreeColorsText(Scene):
 
     def construct(self):
 
@@ -50,7 +49,7 @@ class ThreeColors(Scene):
         self.play(FadeOut(text))
         self.wait(1)
 
-class FirstRotating(Scene):
+class ThreeColorsRotating(Scene):
 
     def construct(self):
 
@@ -75,7 +74,7 @@ class FirstRotating(Scene):
 
         self.wait(4)
 
-class TwoColors(Scene):
+class TwoColorsText(Scene):
 
     def construct(self):
 
@@ -86,7 +85,7 @@ class TwoColors(Scene):
         self.play(FadeOut(text))
         self.wait(1)
 
-class SecondRotating(Scene):
+class TwoColorsRotating(Scene):
 
     def construct(self):
 
@@ -101,7 +100,6 @@ class SecondRotating(Scene):
             arcs.add(arc)
 
         self.play(Write(arcs))
-        # self.add(arcs)
         self.wait(1)
 
         self.play(*[(Rotating(j, about_point = ORIGIN, radians = 2*PI*(np.linalg.norm(j.get_last_point())), rate_function = linear, run_time=100)) for j in arcs])
