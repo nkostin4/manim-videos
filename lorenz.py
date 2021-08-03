@@ -524,7 +524,7 @@ class Butterfly(ThreeDScene):
         # self.add(axes)
         self.set_camera_orientation(phi=PI/2, theta=PI, distance = 30)
         self.begin_ambient_camera_rotation(rate=PI/36)
-        self.play(ShowCreation(trajectory), run_time=20)
+        self.play(Create(trajectory), run_time=20)
         self.stop_ambient_camera_rotation()
         self.wait(4)
         self.play(
@@ -599,7 +599,7 @@ class TwoButterflies(ThreeDScene):
         
         # self.add(axes)
         self.set_camera_orientation(phi=PI/2, theta=25*PI/16, distance = 30)        
-        self.play(ShowCreation(trajectory_1), ShowCreation(trajectory_2), run_time=50)
+        self.play(Create(trajectory_1), Create(trajectory_2), run_time=50)
         self.wait(2)
         
         self.play(            
@@ -675,7 +675,7 @@ class ThreeButterflies(ThreeDScene):
         self.add(trajectory_3)
         self.add(trajectory_4)
         self.add(trajectory_5)
-        # self.play(ShowCreation(trajectory_3), ShowCreation(trajectory_4), ShowCreation(trajectory_5), run_time=60)
+        # self.play(Create(trajectory_3), Create(trajectory_4), Create(trajectory_5), run_time=60)
         # self.wait(2)
         
         # self.begin_ambient_camera_rotation(rate = 2*PI/40)
