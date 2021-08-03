@@ -79,7 +79,7 @@ class AizawaRotate(ThreeDScene):
         
         # self.add(axes)
         self.set_camera_orientation(phi=PI/2, theta=2*PI, distance = 2)
-        self.play(ShowCreation(trajectory), run_time=36)
+        self.play(Create(trajectory), run_time=36)
         # self.add(trajectory)
         self.wait(2)
         self.begin_ambient_camera_rotation(about = 'phi', rate = 2*PI/40)
